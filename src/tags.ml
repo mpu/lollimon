@@ -76,7 +76,7 @@ value update' f t = match t.val with [
 ];
 
 
-value alias s d kf ks =
+value alias' s d kf ks =
   let (snum,savl) = match s.val with [
                    Val (x,y) -> (x,y) | 
                    _ -> raise (Failure "alias 1")

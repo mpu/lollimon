@@ -101,9 +101,9 @@ let rec kf = fun [
         incr attempt;
         let s' = ref (Val (List.length linRefs, newAvailVal())) in
         let d = ref (Val (0, newAvailVal())) in 
-        (init s' d;
+        do {init s' d;
         solve 0.0 1.0 2.0 3.0 s' d (ExpSub f sub []) kf ks 
-      )}
+      }}
       else do {
         psc 0 (fun () -> "Failed to find "^(soi (min expect tries))^" solutions within "^
               (soi maxAttempt)^" attempts.\n");

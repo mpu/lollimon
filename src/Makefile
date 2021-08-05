@@ -17,7 +17,7 @@ ocaml: $(OBJS) core
 	$(OCAML) $(OBJS) main.cmo
 
 core: $(OBJS)
-	$(OCAMLC) -pp camlp4r -c main.ml
+	$(OCAMLC) -pp camlp5r -c main.ml
 
 # Common rules 
 .SUFFIXES: .ml .mli .cmo .cmi .cmx 

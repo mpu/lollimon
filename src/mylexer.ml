@@ -25,29 +25,16 @@ type token = [
 
 value initial_buffer = String.create 32;
 
-value buffer = ref "" (*initial_buffer*);
+value buffer = Buffer.create 32;
 value bufpos = ref 0;
 
 value reset_buffer () = bufpos.val := 0; 
-(*do { buffer.val := initial_buffer; bufpos.val := 0 };*)
 
-value store c = do {
-  if bufpos.val >= String.length buffer.val then
-    let newbuffer = String.create (2 * bufpos.val) in 
-    do {
-      String.blit buffer.val 0 newbuffer 0 bufpos.val; 
-      buffer.val := newbuffer
-    }
-  else ();
-  String.set buffer.val bufpos.val c;
-  incr bufpos
-};
+value store c = Buffer.add_char buffer c;
 
 value get_string () =
-  let s = String.sub buffer.val 0 bufpos.val in 
-(*  let _ = buffer.val := initial_buffer in *)
-  do { reset_buffer(); s}
-;
+  let s = Buffer.contents buffer in
+  do { Buffer.reset buffer; s };
 
 (* The lexer *)
 
@@ -219,5 +206,5 @@ value make_lexer keyId keywords input =
     ]
   in
 
-  Stream.from (fun count -> do { buffer.val := initial_buffer; next_token input })
+  Stream.from (fun count -> do { Buffer.reset buffer; next_token input })
 ;

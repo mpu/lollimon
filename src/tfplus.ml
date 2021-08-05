@@ -160,7 +160,7 @@ match gl with [
   in
   match gl with [
 
-  Const "top" 0 [] -> alias s d kf (ks True) |
+  Const "top" 0 [] -> alias' s d kf (ks True) |
 
   Const "one" 0 [] -> 
     if (fst (getval s) = 0) then ks False kf 
@@ -227,7 +227,7 @@ match gl with [
       if v then
         write l (Val (0,snd (getval s))) kf (fun kf ->
         solve al ar dl delta l d g2 kf (fun _ kf -> 
-        alias s d kf (ks True) 
+        alias' s d kf (ks True) 
         ))
       else solve al ar dl delta s d g2 kf ks
     ) |
@@ -372,7 +372,7 @@ let _ = ps 0 ("forward failed with: "^(fail2str x)^"\n") in
           if v then
             write newTag (Val (0,snd (getval s))) kf (fun kf ->
             breakdown al ar dl delta newTag d a' again linDel clsTyp goal addedFrms cls unrId banned kf 
-              (fun addFrms _ kf -> alias s d kf (ks addFrms True)))
+              (fun addFrms _ kf -> alias' s d kf (ks addFrms True)))
           else breakdown al ar dl delta s d a' again linDel clsTyp goal addedFrms cls unrId banned kf ks
         in
         match tKnd with [
